@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.ably.mapper.wish.WishCommandMapper">
+    <insert id="insertWish" useGeneratedKeys="true" keyColumn="WISH_NO" keyProperty="wishNo">
+        INSERT INTO WISH(PRODUCT_NO)
+        VALUES(#{productNo})
+    </insert>
+
+    <insert id="insertFolderWish">
+        INSERT INTO FOLDER_WISH(FOLDER_NO, WISH_NO)
+        VALUES(#{folderNo}, #{wishNo})
+    </insert>
+
+    <delete id="deleteWish">
+        DELETE FROM WISH
+        WHERE WISH_NO IN
+        <foreach collection="wishNoList" item="wishNo" separator="," open="(" close=")">
+            #{wishNo}
+        </foreach>
+    </delete>
+
+    <delete id="deleteFolderWish">
+        DELETE FROM FOLDER_WISH
+        WHERE WISH_NO IN
+        <foreach collection="wishNoList" item="wishNo" separator="," open="(" close=")">
+            #{wishNo}
+        </foreach>
+    </delete>
+</mapper>

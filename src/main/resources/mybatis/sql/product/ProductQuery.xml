@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.ably.mapper.product.ProductQueryMapper">
+    <resultMap id="product" type="com.project.ably.model.response.ProductResponse" autoMapping="true"/>
+
+    <select id="selectProductList" resultMap="product">
+        SELECT PRODUCT_NO AS productNo,
+               PRODUCT_NAME AS productName,
+               THUMBNAIL AS thumbnail,
+               PRICE AS price
+        FROM PRODUCT
+    </select>
+</mapper>

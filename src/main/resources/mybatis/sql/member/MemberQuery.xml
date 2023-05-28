@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.ably.mapper.member.MemberQueryMapper">
+    <resultMap id="member" type="com.project.ably.model.vo.Member" autoMapping="true"/>
+
+    <select id="findMemberByEmail" resultMap="member">
+        SELECT EMAIL AS email,
+               PASSWORD AS password,
+               REGISTRATION_DATE AS registrationDate
+        FROM MEMBER
+        WHERE EMAIL = #{email}
+    </select>
+</mapper>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <mappers>
+        <mapper resource="mybatis/sql/member/MemberCommand.xml"/>
+        <mapper resource="mybatis/sql/member/MemberQuery.xml"/>
+        <mapper resource="mybatis/sql/folder/FolderCommand.xml"/>
+        <mapper resource="mybatis/sql/folder/FolderQuery.xml"/>
+        <mapper resource="mybatis/sql/wish/WishCommand.xml"/>
+        <mapper resource="mybatis/sql/wish/WishQuery.xml"/>
+        <mapper resource="mybatis/sql/product/ProductQuery.xml"/>
+    </mappers>
+</configuration>

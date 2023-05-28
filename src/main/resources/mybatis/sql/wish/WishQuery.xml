@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.ably.mapper.wish.WishQueryMapper">
+    <resultMap id="wish" type="com.project.ably.model.vo.Wish" autoMapping="true"/>
+
+    <select id="checkExistProduct" resultType="Integer">
+        SELECT W.PRODUCT_NO
+        FROM MEMBER_FOLDER MF JOIN FOLDER_WISH FW ON MF.FOLDER_NO = FW.FOLDER_NO
+                              JOIN WISH W ON FW.WISH_NO = W.WISH_NO
+        WHERE MF.EMAIL = #{email}
+        AND W.PRODUCT_NO = #{productNo}
+    </select>
+
+    <select id="selectWishNoList" resultType="Integer">
+        SELECT WISH_NO
+        FROM FOLDER_WISH
+        WHERE FOLDER_NO = #{folderNo}
+    </select>
+
+    <select id="checkExistWishNo" resultType="Integer">
+        SELECT FW.WISH_NO
+        FROM MEMBER_FOLDER MF JOIN FOLDER_WISH FW ON MF.FOLDER_NO = FW.FOLDER_NO
+        WHERE MF.EMAIL = #{email}
+        AND FW.WISH_NO IN
+        <foreach collection="wishNoList" item="wishNo" separator="," open="(" close=")">
+            #{wishNo}
+        </foreach>
+    </select>
+
+    <select id="selectWishList" resultMap="wish">
+        SELECT FW.FOLDER_NO AS folderNo,
+               F.FOLDER_NAME AS folderName,
+               W.WISH_NO AS wishNo,
+               W.PRODUCT_NO AS productNo,
+               W.REGISTRATION_DATE AS registrationDate
+        FROM MEMBER_FOLDER MF JOIN FOLDER F ON MF.FOLDER_NO = F.FOLDER_NO
+                              JOIN FOLDER_WISH FW ON MF.FOLDER_NO = FW.FOLDER_NO
+                              JOIN WISH W ON FW.WISH_NO = W.WISH_NO
+        WHERE MF.EMAIL = #{email}
+        ORDER BY W.WISH_NO
+        LIMIT #{pageSize} OFFSET (#{pageNo} - 1) * #{pageSize}
+    </select>
+</mapper>
