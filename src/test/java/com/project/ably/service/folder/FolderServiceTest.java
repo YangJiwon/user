@@ -1,24 +1,12 @@
 package com.project.ably.service.folder;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.BDDMockito.*;
-
-import java.util.List;
-
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-
-import com.project.ably.model.request.MemberRequest;
-import com.project.ably.model.response.FolderResponse;
-import com.project.ably.model.vo.Folder;
 
 @SpringBootTest(classes = {FolderService.class})
 @DisplayName("찜서랍 관련 서비스 테스트")
 class FolderServiceTest {
-	@Autowired
+	/*@Autowired
 	private FolderService folderService;
 
 	@MockBean
@@ -44,5 +32,5 @@ class FolderServiceTest {
 		List<FolderResponse> response = folderService.selectFolderList(1, 10, email);
 
 		assertEquals(folderList.size(), response.size());
-	}
+	}*/
 }

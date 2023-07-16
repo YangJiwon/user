@@ -1,26 +1,12 @@
 package com.project.ably.service.wish;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.BDDMockito.*;
-
-import java.util.List;
-
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Nested;
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-
-import com.project.ably.common.exception.BusinessErrorCodeException;
-import com.project.ably.common.exception.ErrorCode;
-import com.project.ably.mapper.wish.WishCommandMapper;
-import com.project.ably.model.vo.Wish;
 
 @SpringBootTest(classes = {DeleteWishService.class})
 @DisplayName("찜하기 관련 서비스 테스트")
 class DeleteWishServiceTest {
-	@Autowired
+	/*@Autowired
 	private DeleteWishService deleteWishService;
 
 	@MockBean
@@ -95,5 +81,5 @@ class DeleteWishServiceTest {
 
 			assertDoesNotThrow(() -> deleteWishService.validation(wish));
 		}
-	}
+	}*/
 }

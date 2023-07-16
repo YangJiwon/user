@@ -6,38 +6,35 @@
 
     <select id="checkExistProduct" resultType="Integer">
         SELECT W.PRODUCT_NO
-        FROM MEMBER_FOLDER MF JOIN FOLDER_WISH FW ON MF.FOLDER_NO = FW.FOLDER_NO
-                              JOIN WISH W ON FW.WISH_NO = W.WISH_NO
-        WHERE MF.EMAIL = #{email}
+        FROM FOLDER F JOIN WISH W ON F.FOLDER_NO = W.FOLDER_NO
+        WHERE F.EMAIL = #{email}
         AND W.PRODUCT_NO = #{productNo}
     </select>
 
     <select id="selectWishNoList" resultType="Integer">
         SELECT WISH_NO
-        FROM FOLDER_WISH
+        FROM WISH
         WHERE FOLDER_NO = #{folderNo}
     </select>
 
     <select id="checkExistWishNo" resultType="Integer">
-        SELECT FW.WISH_NO
-        FROM MEMBER_FOLDER MF JOIN FOLDER_WISH FW ON MF.FOLDER_NO = FW.FOLDER_NO
-        WHERE MF.EMAIL = #{email}
-        AND FW.WISH_NO IN
+        SELECT W.WISH_NO
+        FROM FOLDER F JOIN WISH W ON F.FOLDER_NO = W.FOLDER_NO
+        WHERE F.EMAIL = #{email}
+        AND W.WISH_NO IN
         <foreach collection="wishNoList" item="wishNo" separator="," open="(" close=")">
             #{wishNo}
         </foreach>
     </select>
 
     <select id="selectWishList" resultMap="wish">
-        SELECT FW.FOLDER_NO AS folderNo,
+        SELECT W.FOLDER_NO AS folderNo,
                F.FOLDER_NAME AS folderName,
                W.WISH_NO AS wishNo,
                W.PRODUCT_NO AS productNo,
                W.REGISTRATION_DATE AS registrationDate
-        FROM MEMBER_FOLDER MF JOIN FOLDER F ON MF.FOLDER_NO = F.FOLDER_NO
-                              JOIN FOLDER_WISH FW ON MF.FOLDER_NO = FW.FOLDER_NO
-                              JOIN WISH W ON FW.WISH_NO = W.WISH_NO
-        WHERE MF.EMAIL = #{email}
+        FROM FOLDER F JOIN WISH W ON W.FOLDER_NO = F.FOLDER_NO
+        WHERE F.EMAIL = #{email}
         ORDER BY W.WISH_NO
         LIMIT #{pageSize} OFFSET (#{pageNo} - 1) * #{pageSize}
     </select>

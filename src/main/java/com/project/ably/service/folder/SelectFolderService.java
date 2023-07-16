@@ -1,26 +1,29 @@
 package com.project.ably.service.folder;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.ObjectUtils;
 
 import com.project.ably.common.exception.BusinessErrorCodeException;
 import com.project.ably.common.exception.ErrorCode;
-import com.project.ably.mapper.folder.FolderQueryMapper;
+import com.project.ably.model.entity.FolderEntity;
 import com.project.ably.model.response.FolderResponse;
-import com.project.ably.model.vo.Folder;
+import com.project.ably.repository.FolderRepository;
 
 import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
 public class SelectFolderService {
-	private final FolderQueryMapper queryMapper;
+	private final FolderRepository folderRepository;
 
 	public List<FolderResponse> selectFolderList(int pageNo, int pageSize, String email) {
-		List<Folder> folderList = queryMapper.selectFolderList(pageNo, pageSize, email);
+		//todo:: paging
+		List<FolderEntity> folderList = folderRepository.findAllByEmail(email);
 		if(CollectionUtils.isEmpty(folderList)){
 			throw new BusinessErrorCodeException(ErrorCode.SELECT_MEMBER_FOLDER);
 		}
@@ -30,19 +33,25 @@ public class SelectFolderService {
 				.collect(Collectors.toList());
 	}
 
-	public Integer checkExistFolderByName(String email, String folderName){
-		return queryMapper.checkExistFolderByName(email, folderName);
+	public FolderEntity checkExistFolderByName(String email, String folderName){
+		return folderRepository.findByEmailAndFolderName(email, folderName);
 	}
 
-	public Integer checkExistFolderByNo(String email, int folderNo){
-		return queryMapper.checkExistFolderByNo(email, folderNo);
+	public FolderEntity checkExistFolderByNo(int folderNo){
+		Optional<FolderEntity> findFolderEntity = folderRepository.findById(folderNo);
+		if(findFolderEntity.isEmpty()){
+			return null;
+		}
+
+		return findFolderEntity.get();
 	}
 
-	public Integer checkDefaultFolder(String email, int folderNo){
-		return queryMapper.checkDefaultFolder(email, folderNo);
-	}
+	public Integer selectDefaultFolderNo(int folderNo, String email){
+		FolderEntity folderEntity = folderRepository.findByEmailAndFolderNoAndDefaultYn(email, folderNo, "Y");
+		if(ObjectUtils.isEmpty(folderEntity)){
+			return 0;
+		}
 
-	public Integer selectDefaultFolderNo(String email){
-		return queryMapper.selectDefaultFolderNo(email);
+		return folderEntity.getFolderNo();
 	}
 }

@@ -7,11 +7,6 @@
                     VALUES(#{folderName}, #{defaultYn})
     </insert>
 
-    <insert id="insertMemberFolder">
-        INSERT INTO MEMBER_FOLDER(EMAIL, FOLDER_NO)
-        VALUES(#{email}, #{folderNo})
-    </insert>
-
     <delete id="deleteFolder">
         DELETE FROM FOLDER
         WHERE FOLDER_NO = #{folderNo}

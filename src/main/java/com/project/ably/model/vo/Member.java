@@ -6,6 +6,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.util.ObjectUtils;
 
+import com.project.ably.model.entity.MemberEntity;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -18,6 +20,12 @@ public class Member implements UserDetails {
 
 	public boolean isExistMember(){
 		return !ObjectUtils.isEmpty(this.email);
+	}
+
+	public Member(MemberEntity memberEntity){
+		this.email = memberEntity.getEmail();
+		this.password = memberEntity.getPassword();
+		this.registrationDate = memberEntity.getRegistrationDate();
 	}
 
 	@Override

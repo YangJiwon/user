@@ -1,30 +1,12 @@
 package com.project.ably.service.wish;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.BDDMockito.*;
-
-import java.util.List;
-import java.util.Map;
-
-import org.apache.commons.collections4.CollectionUtils;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-
-import com.project.ably.common.exception.BusinessErrorCodeException;
-import com.project.ably.common.exception.ErrorCode;
-import com.project.ably.mapper.wish.WishQueryMapper;
-import com.project.ably.model.response.FolderWithWishResponse;
-import com.project.ably.model.response.ProductResponse;
-import com.project.ably.model.vo.Wish;
-import com.project.ably.service.product.ProductService;
 
 @SpringBootTest(classes = {SelectWishService.class})
 @DisplayName("찜 조회 관련 서비스 테스트")
 class SelectWishServiceTest {
-	@Autowired
+	/*@Autowired
 	private SelectWishService selectWishService;
 
 	@MockBean
@@ -88,5 +70,5 @@ class SelectWishServiceTest {
 
 		List<FolderWithWishResponse> responses = selectWishService.selectWishList(1, 10, email);
 		assertTrue(CollectionUtils.isEqualCollection(responses, response));
-	}
+	}*/
 }

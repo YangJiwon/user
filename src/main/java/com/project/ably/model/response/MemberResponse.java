@@ -1,6 +1,6 @@
 package com.project.ably.model.response;
 
-import com.project.ably.model.vo.Member;
+import com.project.ably.model.entity.MemberEntity;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.EqualsAndHashCode;
@@ -16,8 +16,8 @@ public class MemberResponse {
     @Schema(description = "회원 가입일", example = "2023-05-29 00:00:00")
     private final String registrationDate;
 
-    public MemberResponse(Member member){
-        this.email = member.getEmail();
-        this.registrationDate = member.getRegistrationDate();
+    public MemberResponse(MemberEntity memberEntity){
+        this.email = memberEntity.getEmail();
+        this.registrationDate = memberEntity.getRegistrationDate();
     }
 }

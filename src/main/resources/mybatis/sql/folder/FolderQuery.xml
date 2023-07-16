@@ -5,41 +5,41 @@
     <resultMap id="folder" type="com.project.ably.model.vo.Folder" autoMapping="true"/>
 
     <select id="checkExistFolderByName" resultType="Integer">
-        SELECT F.FOLDER_NO
-        FROM MEMBER_FOLDER MF JOIN FOLDER F ON MF.FOLDER_NO = F.FOLDER_NO
-        WHERE MF.EMAIL = #{email}
-        AND F.FOLDER_NAME = #{folderName}
+        SELECT FOLDER_NO
+        FROM FOLDER
+        WHERE EMAIL = #{email}
+        AND FOLDER_NAME = #{folderName}
     </select>
 
     <select id="checkExistFolderByNo" resultType="Integer">
         SELECT FOLDER_NO
-        FROM MEMBER_FOLDER
+        FROM FOLDER
         WHERE EMAIL = #{email}
         AND FOLDER_NO = #{folderNo}
     </select>
 
     <select id="selectFolderList" resultMap="folder">
-        SELECT F.FOLDER_NO AS folderNo,
-               F.FOLDER_NAME AS folderName,
-               F.REGISTRATION_DATE AS registrationDate
-        FROM MEMBER_FOLDER MF JOIN FOLDER F ON MF.FOLDER_NO = F.FOLDER_NO
-        WHERE MF.EMAIL = #{email}
-        ORDER BY F.FOLDER_NO
+        SELECT FOLDER_NO AS folderNo,
+               FOLDER_NAME AS folderName,
+               REGISTRATION_DATE AS registrationDate
+        FROM FOLDER
+        WHERE EMAIL = #{email}
+        ORDER BY FOLDER_NO
         LIMIT #{pageSize} OFFSET (#{pageNo} - 1) * #{pageSize}
     </select>
 
     <select id="selectDefaultFolderNo" resultType="Integer">
-        SELECT MF.FOLDER_NO
-        FROM MEMBER_FOLDER MF JOIN FOLDER F ON MF.FOLDER_NO = F.FOLDER_NO
-        WHERE MF.EMAIL = #{email}
-        AND  F.DEFAULT_YN = 'Y'
+        SELECT FOLDER_NO
+        FROM FOLDER
+        WHERE EMAIL = #{email}
+        AND  DEFAULT_YN = 'Y'
     </select>
 
     <select id="checkDefaultFolder" resultType="Integer">
-        SELECT MF.FOLDER_NO
-        FROM MEMBER_FOLDER MF JOIN FOLDER F ON MF.FOLDER_NO = F.FOLDER_NO
-        WHERE MF.EMAIL = #{email}
-        AND MF.FOLDER_NO = #{folderNo}
-        AND F.DEFAULT_YN = 'Y'
+        SELECT FOLDER_NO
+        FROM FOLDER
+        WHERE EMAIL = #{email}
+        AND FOLDER_NO = #{folderNo}
+        AND DEFAULT_YN = 'Y'
     </select>
 </mapper>
